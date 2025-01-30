@@ -6,7 +6,7 @@ import traceback
 import requests  
 
 API_URL = "https://api-inference.huggingface.co/models/facebook/opt-350m"  # Switched to a smaller model
-API_KEY = "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"  
+API_KEY = "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"  
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
@@ -19,7 +19,7 @@ HEAT_THRESHOLDS = {
 }
 
 def generate_suggestions(prompt):
-    headers = {"Authorization": f"Bearer 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"}
+    headers = {"Authorization": f"Bearer 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"}
     payload = {"inputs": prompt, "parameters": {"max_length": 250, "temperature": 0.7}}
     response = requests.post(API_URL, headers=headers, json=payload)
     
