@@ -6,7 +6,7 @@ import traceback
 import requests  
 
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-API_KEY = "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"  
+API_KEY = "api"   
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
@@ -22,18 +22,20 @@ def generate_suggestions(prompt):
     headers = {"Authorization": f"Bearer {API_KEY}"}
     payload = {"inputs": prompt, "parameters": {"max_length": 250, "temperature": 0.5}}
     response = requests.post(API_URL, headers=headers, json=payload)
-    
+
     print("Raw API Response:", response.text)  # Debugging line to inspect response format
 
     if response.status_code == 200:
         response_json = response.json()
         if isinstance(response_json, list) and len(response_json) > 0:
-            return response_json  # Return the full response for now to debug
+            # Extract and return the generated summary from the response
+            summary_text = response_json[0].get("generated_text", "")
+            return summary_text
         else:
             return "Error: Unexpected response format"
     else:
         return f"API Error: {response.status_code} - {response.text}"
-        
+
 st.set_page_config(page_title="Urban Heat Analyst", layout="wide")
 st.title("Urban Heat Analysis with AI")
 
