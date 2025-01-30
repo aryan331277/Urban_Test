@@ -5,7 +5,7 @@ from PIL import Image
 import traceback
 import requests  
 
-API_URL = "https://api.openai.com/v1/chat/completions"  # For OpenAI GPT
+API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct"
 API_KEY = "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"  
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
