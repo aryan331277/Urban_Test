@@ -8,7 +8,7 @@ import requests
 API_URL = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-1.3B"  
 API_KEY = "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"  
 MODEL_PATH = "trainedmodelfinal.pkl"
-XAI_IMAGE_PATH = "feature importance of rf regressor.png"
+XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
     'critical_temp': 38.0,
     'green_cover_min': 25,
