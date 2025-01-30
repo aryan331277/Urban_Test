@@ -39,8 +39,20 @@ cities = st.sidebar.selectbox("Select City", ["Delhi", "Mumbai", "Hyderabad"])
 st.sidebar.header("Urban Parameters")
 
 inputs = {}
-inputs['Longitude'] = st.number_input("Longitude", min_value=72.8, max_value=77.2, value=77.2090, step=0.001, format="%.6f")
-inputs['Latitude'] = st.number_input("Latitude", min_value=18.9, max_value=28.6, value=19.0760, step=0.001, format="%.6f")
+inputs['Longitude'] = st.number_input("Longitude", 
+                                      min_value=float(72.8), 
+                                      max_value=float(77.2), 
+                                      value=float(77.2090), 
+                                      step=float(0.001), 
+                                      format="%.6f")
+
+inputs['Latitude'] = st.number_input("Latitude", 
+                                     min_value=float(18.9), 
+                                     max_value=float(28.6), 
+                                     value=float(19.0760), 
+                                     step=float(0.001), 
+                                     format="%.6f")
+
 inputs['Population Density'] = st.number_input("Population Density (people/km²)", 1000, 50000, 20000)
 inputs['Albedo'] = st.slider("Albedo", 0.0, 1.0, 0.3, 0.05)
 inputs['Green Cover Percentage'] = st.slider("Green Cover (%)", 0, 100, 25)
