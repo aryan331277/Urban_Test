@@ -6,7 +6,7 @@ import traceback
 import requests  
 
 API_URL = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-1.3B"  
-API_KEY = "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"  
+API_KEY = "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"  
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
@@ -19,7 +19,7 @@ HEAT_THRESHOLDS = {
 }
 
 def generate_suggestions(prompt):
-    headers = {"Authorization": f"Bearer {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}"}
+    headers = {"Authorization": f"Bearer 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"}
     payload = {"inputs": prompt, "parameters": {"max_length": 250, "temperature": 0.7}}
     response = requests.post(API_URL, headers=headers, json=payload)
     return response.json()[0]['generated_text'] if response.status_code == 200 else f"Error: {response.status_code}"
