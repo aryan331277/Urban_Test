@@ -19,7 +19,7 @@ HEAT_THRESHOLDS = {
 }
 
 def generate_suggestions(prompt):
-    headers = {"Authorization": f"Bearer {API_KEY}"}
+    headers = {"Authorization": f"Bearer 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"}
     payload = {"inputs": prompt, "parameters": {"max_length": 250, "temperature": 0.7}}
     response = requests.post(API_URL, headers=headers, json=payload)
     return response.json()[0]['generated_text'] if response.status_code == 200 else f"Error: {response.status_code}"
