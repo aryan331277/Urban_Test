@@ -6,7 +6,7 @@ import traceback
 import requests  
 
 API_URL = "https://api-inference.huggingface.co/models/distilgpt2"
-API_KEY = "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"  
+API_KEY = "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"  
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
@@ -19,7 +19,7 @@ HEAT_THRESHOLDS = {
 }
 
 def generate_suggestions(prompt):
-    headers = {"Authorization": f"Bearer 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"}
+    headers = {"Authorization": f"Bearer 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"}
     payload = {"inputs": prompt, "parameters": {"max_length": 250, "temperature": 0.7}}
     response = requests.post(API_URL, headers=headers, json=payload)
     
