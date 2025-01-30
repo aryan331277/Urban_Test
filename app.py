@@ -25,6 +25,8 @@ def generate_suggestions(prompt):
     
     if response.status_code == 200:
         response_json = response.json()
+        print("Raw API Response:", response_json)  # Debugging print
+        
         if isinstance(response_json, list) and len(response_json) > 0 and 'generated_text' in response_json[0]:
             return response_json[0]['generated_text']
         else:
