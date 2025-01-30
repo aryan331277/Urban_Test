@@ -38,34 +38,33 @@ st.title("Urban Heat Analysis with AI")
 cities = st.sidebar.selectbox("Select City", ["Delhi", "Mumbai", "Hyderabad"])
 st.sidebar.header("Urban Parameters")
 
-inputs = {}
-inputs['Longitude'] = st.number_input("Longitude", 
-                                      min_value=float(72.8), 
-                                      max_value=float(77.2), 
-                                      value=float(77.2090), 
-                                      step=float(0.001), 
-                                      format="%.6f")
+with st.sidebar:
+    st.header("Urban Parameters")
+    inputs = {}
+    
+    try:
+        inputs['Latitude'] = st.number_input("Latitude", 19.0, 19.2, 19.0760, 0.0001)
+        inputs['Longitude'] = st.number_input("Longitude", 72.8, 73.0, 72.8777, 0.0001)
+        inputs['Population Density'] = st.number_input("Population Density (people/km²)", 1000, 50000, 20000)
+        inputs['Albedo'] = st.slider("Albedo", 0.0, 1.0, 0.3, 0.05)
+        inputs['Green Cover Percentage'] = st.slider("Green Cover (%)", 0, 100, 25)
+        inputs['Relative Humidity'] = st.slider("Humidity (%)", 0, 100, 60)
+        inputs['Wind Speed'] = st.slider("Wind Speed (m/s)", 0.0, 15.0, 3.0, 0.1)
+        inputs['Building Height'] = st.slider("Building Height (m)", 5, 150, 30)
+        inputs['Road Density'] = st.slider("Road Density (km/km²)", 0.0, 20.0, 5.0, 0.1)
+        inputs['Proximity to Water Body'] = st.slider("Water Proximity (m)", 0, 5000, 1000)
+        inputs['Solar Radiation'] = st.slider("Solar Radiation (W/m²)", 0, 1000, 500)
+        inputs['Nighttime Surface Temperature'] = st.slider("Night Temp (°C)", 15.0, 40.0, 25.0, 0.1)
+        inputs['Distance from Previous Point'] = st.number_input("Distance from Previous Point (m)", 0, 5000, 100)
+        inputs['Heat Stress Index'] = st.slider("Heat Stress Index", 0.0, 10.0, 3.5, 0.1)
+        inputs['Urban Vegetation Index'] = st.slider("Vegetation Index", 0.0, 1.0, 0.5, 0.01)
+        inputs['Carbon Emission Levels'] = st.number_input("CO₂ Levels (ppm)", 300, 1000, 400)
+        inputs['Surface Material'] = st.selectbox("Surface Material", ["Concrete", "Asphalt", "Grass", "Water", "Mixed"])
+        
+    except KeyError as e:
+        st.error(f"Missing input field: {str(e)}")
+        st.stop()
 
-inputs['Latitude'] = st.number_input("Latitude", 
-                                     min_value=float(18.9), 
-                                     max_value=float(28.6), 
-                                     value=float(19.0760), 
-                                     step=float(0.001), 
-                                     format="%.6f")
-
-inputs['Population Density'] = st.number_input("Population Density (people/km²)", 1000, 50000, 20000)
-inputs['Albedo'] = st.slider("Albedo", 0.0, 1.0, 0.3, 0.05)
-inputs['Green Cover Percentage'] = st.slider("Green Cover (%)", 0, 100, 25)
-inputs['Humidity'] = st.slider("Humidity (%)", 0, 100, 60)
-inputs['Wind Speed'] = st.slider("Wind Speed (m/s)", 0.0, 15.0, 3.0, 0.1)
-inputs['Building Height'] = st.slider("Building Height (m)", 5, 150, 30)
-inputs['Road Density'] = st.slider("Road Density (km/km²)", 0.0, 20.0, 5.0, 0.1)
-inputs['Water Proximity'] = st.slider("Proximity to Water Body (m)", 0, 5000, 1000)
-inputs['Solar Radiation'] = st.slider("Solar Radiation (W/m²)", 0, 1000, 500)
-inputs['Heat Stress Index'] = st.slider("Heat Stress Index", 0.0, 10.0, 3.5, 0.1)
-inputs['Carbon Emission Levels'] = st.number_input("CO₂ Levels (ppm)", 300, 1000, 400)
-inputs['Land Cover Type'] = st.selectbox("Land Cover Type", ["Urban", "Vegetation", "Water", "Bare Soil", "Industrial", "Residential"])
-inputs['Cooling Measures'] = st.selectbox("Cooling Measures", ["None", "Water Features", "Reflective Paint", "Rooftop Garden", "Shaded Streets", "Green Roofs"])
 
 if st.sidebar.button("Analyze Urban Heat"):
     try:
@@ -73,7 +72,7 @@ if st.sidebar.button("Analyze Urban Heat"):
         if missing_features:
             st.error(f"Missing features: {', '.join(missing_features)}")
             st.stop()
-        
+            
         input_df = pd.DataFrame([inputs], columns=required_features)
         prediction = model.predict(input_df)[0]
         
