@@ -81,7 +81,16 @@ if st.sidebar.button("Analyze Urban Heat"):
         st.metric("Predicted Surface Temperature", f"{prediction:.1f}°C")
         st.image(xai_image, caption="Feature Impact Analysis", use_column_width=True)
         
-        prompt = "Suggest ways to reduce urban heat based on green cover, albedo, and cooling measures."
+        prompt = prompt = (
+        f"Provide urban cooling strategies with these thresholds: "
+        f"🌡️ Keep surface temperature below {HEAT_THRESHOLDS['critical_temp']}°C, "
+        f"🌿 Ensure green cover ≥{HEAT_THRESHOLDS['green_cover_min']}%, "
+        f"☀️ Improve surface reflectivity to ≥{HEAT_THRESHOLDS['albedo_min']} albedo, "
+        f"🏢 Limit building height to ≤{HEAT_THRESHOLDS['building_height_max']}m, "
+        f"🔥 Keep heat stress index below {HEAT_THRESHOLDS['heat_stress_max']}, "
+        f"👥 Maintain population density below {HEAT_THRESHOLDS['population_density_max']} people/km²."
+        f" Suggest effective strategies considering these thresholds."
+    )
         suggestions = generate_suggestions(prompt)
         
         st.subheader("Recommendations")
