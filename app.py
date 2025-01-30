@@ -9,7 +9,7 @@ from typing import Dict, Any
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
 API_KEY="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"
 MODEL_PATH = "trainedmodelfinal.pkl"
-XAI_IMAGE_PATH = "feature_importance.png"
+XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
     'critical_temp': 38.0,
     'green_cover_min': 25,
