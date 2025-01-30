@@ -60,7 +60,8 @@ with st.sidebar:
         inputs['Urban Vegetation Index'] = st.slider("Vegetation Index", 0.0, 1.0, 0.5, 0.01)
         inputs['Carbon Emission Levels'] = st.number_input("CO₂ Levels (ppm)", 300, 1000, 400)
         inputs['Surface Material'] = st.selectbox("Surface Material", ["Concrete", "Asphalt", "Grass", "Water", "Mixed"])
-        
+        inputs['Land Cover Type'] = st.selectbox("Land Cover Type", ["Urban", "Residential", "Water", "Vegetation", "Industrial","Bare Soil"])
+        inputs['Cooling Measures Present']=st.selectbox("Cooling Measures Present",["None","Green Roofs","Reflective Paint","Rooftop Garden","Shaded Streets","Water Features"])
     except KeyError as e:
         st.error(f"Missing input field: {str(e)}")
         st.stop()
