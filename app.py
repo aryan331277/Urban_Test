@@ -6,7 +6,7 @@ import traceback
 import requests  
 
 API_URL = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-1.3B"  
-API_KEY = "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"  
+API_KEY = "api"  
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
