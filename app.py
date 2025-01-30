@@ -6,7 +6,7 @@ import traceback
 import requests  
 
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-API_KEY = "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"   
+API_KEY = "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"   
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
@@ -19,7 +19,7 @@ HEAT_THRESHOLDS = {
 }
 
 def generate_suggestions(prompt):
-    headers = {"Authorization": f"Bearer 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"}
+    headers = {"Authorization": f"Bearer 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"}
     payload = {"inputs": prompt, "parameters": {"max_length": 250, "temperature": 0.5}}
     response = requests.post(API_URL, headers=headers, json=payload)
 
