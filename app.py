@@ -5,7 +5,7 @@ from PIL import Image
 import traceback
 import requests  
 
-API_URL = "https://api-inference.huggingface.co/models/facebook/opt-350m"  # Switched to a smaller model
+API_URL = "https://api-inference.huggingface.co/models/distilgpt2"
 API_KEY = "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"  
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
