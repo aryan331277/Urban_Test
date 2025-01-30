@@ -90,7 +90,7 @@ if st.sidebar.button("Analyze Urban Heat"):
         - Building Height: {inputs['Building Height']}m
         - Heat Stress Index: {inputs['Heat Stress Index']}
         - Land Cover Type: {inputs['Land Cover Type']}
-        - Cooling Measures: {inputs['Cooling Measures']}
+        - Cooling Measures Present: {inputs['Cooling Measures Present']}
         Provide actionable mitigation strategies.
         """
         
