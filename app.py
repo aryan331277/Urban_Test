@@ -82,14 +82,19 @@ if st.sidebar.button("Analyze Urban Heat"):
         st.image(xai_image, caption="Feature Impact Analysis", use_column_width=True)
         
         prompt = prompt = (
-        f"Provide urban cooling strategies with these thresholds: "
-        f"🌡️ Keep surface temperature below {HEAT_THRESHOLDS['critical_temp']}°C, "
-        f"🌿 Ensure green cover ≥{HEAT_THRESHOLDS['green_cover_min']}%, "
-        f"☀️ Improve surface reflectivity to ≥{HEAT_THRESHOLDS['albedo_min']} albedo, "
-        f"🏢 Limit building height to ≤{HEAT_THRESHOLDS['building_height_max']}m, "
-        f"🔥 Keep heat stress index below {HEAT_THRESHOLDS['heat_stress_max']}, "
-        f"👥 Maintain population density below {HEAT_THRESHOLDS['population_density_max']} people/km²."
-        f" Suggest effective strategies considering these thresholds."
+        f"Generate urban heat mitigation strategies following these thresholds:\n"
+        f"1️⃣ 🌡️ Maintain surface temperature ≤ {HEAT_THRESHOLDS['critical_temp']}°C.\n"
+        f"2️⃣ 🌿 Ensure green cover is at least {HEAT_THRESHOLDS['green_cover_min']}%.\n"
+        f"3️⃣ ☀️ Improve surface reflectivity to ≥ {HEAT_THRESHOLDS['albedo_min']} albedo.\n"
+        f"4️⃣ 🏢 Limit building height to ≤ {HEAT_THRESHOLDS['building_height_max']}m.\n"
+        f"5️⃣ 🔥 Keep heat stress index under {HEAT_THRESHOLDS['heat_stress_max']}.\n"
+        f"6️⃣ 👥 Keep population density ≤ {HEAT_THRESHOLDS['population_density_max']} people/km².\n"
+        f"\n### **Response format:**\n"
+        f"- 🏗️ Actionable urban design improvements\n"
+        f"- 🌳 Nature-based solutions\n"
+        f"- 🔬 Technological interventions\n"
+        f"- 🏙️ Policy recommendations\n"
+        f"Provide clear, structured strategies in bullet points. Keep the response under 200 words."
     )
         suggestions = generate_suggestions(prompt)
         
