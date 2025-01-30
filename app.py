@@ -82,16 +82,7 @@ if st.sidebar.button("Analyze Urban Heat"):
         st.image(xai_image, caption="Feature Impact Analysis", use_column_width=True)
         
         prompt = f"""
-        Analyze urban heat issues in {cities} with these factors:
-        - Surface Temperature: {prediction:.1f}°C
-        - Green Cover: {inputs['Green Cover Percentage']}%
-        - Albedo: {inputs['Albedo']}
-        - Population Density: {inputs['Population Density']} people/km²
-        - Building Height: {inputs['Building Height']}m
-        - Heat Stress Index: {inputs['Heat Stress Index']}
-        - Land Cover Type: {inputs['Land Cover Type']}
-        - Cooling Measures Present: {inputs['Cooling Measures Present']}
-        Provide actionable mitigation strategies.
+        What is the weather like today?
         """
         
         suggestions = generate_suggestions(prompt)
