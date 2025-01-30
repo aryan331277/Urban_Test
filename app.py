@@ -6,7 +6,7 @@ import traceback
 import requests  
 
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-API_KEY = "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"   
+API_KEY = "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"  # Replace with your Hugging Face API key
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
@@ -21,20 +21,24 @@ HEAT_THRESHOLDS = {
 def generate_suggestions(prompt):
     headers = {"Authorization": f"Bearer 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"}
     payload = {"inputs": prompt, "parameters": {"max_length": 250, "temperature": 0.5}}
-    response = requests.post(API_URL, headers=headers, json=payload)
-
-    print("Raw API Response:", response.text)  # Debugging line to inspect response format
-
-    if response.status_code == 200:
-        response_json = response.json()
-        if isinstance(response_json, list) and len(response_json) > 0:
-            # Extract and return the generated summary from the response
-            summary_text = response_json[0].get("generated_text", "")
-            return summary_text
+    
+    try:
+        response = requests.post(API_URL, headers=headers, json=payload)
+        print(f"API Response Status Code: {response.status_code}")  # Debugging line
+        print("API Response Text:", response.text)  # Debugging line
+        
+        if response.status_code == 200:
+            response_json = response.json()
+            if isinstance(response_json, list) and len(response_json) > 0:
+                # Extract and return the generated summary from the response
+                summary_text = response_json[0].get("generated_text", "")
+                return summary_text
+            else:
+                return "Error: Unexpected response format"
         else:
-            return "Error: Unexpected response format"
-    else:
-        return f"API Error: {response.status_code} - {response.text}"
+            return f"API Error: {response.status_code} - {response.text}"
+    except Exception as e:
+        return f"Error during API call: {str(e)}"
 
 st.set_page_config(page_title="Urban Heat Analyst", layout="wide")
 st.title("Urban Heat Analysis with AI")
