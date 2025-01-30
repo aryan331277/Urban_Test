@@ -7,7 +7,7 @@ import requests
 from typing import Dict, Any
 
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-API_KEY="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"
+API_KEY="API"
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
