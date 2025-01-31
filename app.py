@@ -7,7 +7,7 @@ import requests
 from typing import Dict, Any
 
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-API_KEY="API"
+API_KEY="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"
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
@@ -26,7 +26,7 @@ def load_model():
 
 def generate_suggestions(prompt: str) -> str:
     """Generate mitigation strategies using Hugging Face API"""
-    headers = {"Authorization": f"Bearer {st.secrets['API_KEY']}"}
+    headers = {"Authorization": f"Bearer {st.secrets['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']}"}
     payload = {
         "inputs": prompt,
         "parameters": {
