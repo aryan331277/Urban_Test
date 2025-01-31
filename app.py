@@ -11,7 +11,7 @@ API_KEY="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"
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
-    'critical_temp': 38.0,
+    'critical_temp': 30.0,
     'green_cover_min': 25,
     'albedo_min': 0.4,
     'building_height_max': 35,
