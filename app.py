@@ -5,6 +5,7 @@ from PIL import Image
 import traceback
 import requests
 from typing import Dict, Any
+import os
 
 API_URL = "https://api-inference.huggingface.co/models/deepseek-ai/DeepSeek-R1"
 MODEL_PATH = "trainedmodelfinal.pkl"
@@ -22,6 +23,7 @@ HEAT_THRESHOLDS = {
 def load_model():
     """Load the trained model with caching"""
     return joblib.load(MODEL_PATH)
+API_KEY = os.getenv("HUGGINGFACE_API_KEY", st.secrets["HUGGINGFACE_API_KEY"])
 
 def generate_suggestions(prompt: str) -> str:
     """Generate mitigation strategies using Hugging Face API"""
