@@ -13,7 +13,7 @@ if not API_KEY:
     st.error("🚨 Missing API key! Please add it to Streamlit Secrets.")
     st.stop()
 
-API_URL = "https://api-inference.huggingface.co/models/deepseek-ai/DeepSeek-R1"
+API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
@@ -32,15 +32,12 @@ def load_model():
 API_KEY = os.getenv("HUGGINGFACE_API_KEY", st.secrets["HUGGINGFACE_API_KEY"])
 
 def generate_suggestions(prompt: str) -> str:
-    """Generate mitigation strategies using DeepSeek-R1"""
-    
-    API_KEY = st.secrets["HUGGINGFACE_API_KEY"]  # Get API key from Streamlit Secrets
-
+    """Generate mitigation strategies using facebook/bart-large-cnn"""
     headers = {
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json"
     }
-    
+
     payload = {
         "inputs": prompt,
         "parameters": {
@@ -50,17 +47,18 @@ def generate_suggestions(prompt: str) -> str:
             "do_sample": True
         }
     }
-    
+
     try:
-        response = requests.post("https://api-inference.huggingface.co/models/deepseek-ai/DeepSeek-R1", 
+        # Using a publicly available model, facebook/bart-large-cnn
+        response = requests.post("https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
                                  headers=headers, json=payload, timeout=30)
-        response.raise_for_status()
-        result = response.json()
+        response.raise_for_status()  # Raises an error for HTTP errors (like 403 or 404)
         
-        if isinstance(result, dict) and "generated_text" in result:
-            return result["generated_text"]
+        result = response.json()
+        if isinstance(result, list) and len(result) > 0 and "summary_text" in result[0]:
+            return result[0]["summary_text"]
         return "⚠️ Could not generate suggestions. Please try again."
-    
+
     except requests.exceptions.Timeout:
         return "⚠️ API request timed out. Please try again."
     except requests.exceptions.RequestException as e:
