@@ -7,6 +7,12 @@ import requests
 from typing import Dict, Any
 import os
 
+API_KEY = st.secrets.get("HUGGINGFACE_API_KEY")
+
+if not API_KEY:
+    st.error("🚨 Missing API key! Please add it to Streamlit Secrets.")
+    st.stop()
+
 API_URL = "https://api-inference.huggingface.co/models/deepseek-ai/DeepSeek-R1"
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
