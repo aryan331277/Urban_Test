@@ -231,6 +231,6 @@ if st.sidebar.button("🚀 Analyze Urban Heat", use_container_width=True):
             - 🏙️ Add green roofs to 20% of commercial buildings
             """
 
-        suggestions = generate_suggestions(prompt)
-        st.markdown(suggestions, unsafe_allow_html=True)
+            suggestions = generate_suggestions(prompt)
+            st.markdown(suggestions, unsafe_allow_html=True)
 
