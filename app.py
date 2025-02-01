@@ -179,45 +179,58 @@ if st.sidebar.button("🚀 Analyze Urban Heat", use_container_width=True):
         # Generate suggestions
         st.subheader("💡 Mitigation Strategies")
         with st.spinner("🔍 Analyzing urban parameters and generating recommendations..."):
-            prompt =f"""
-            Generate actionable urban heat mitigation strategies considering these parameters:
-            City: {inputs.get('City', 'Urban Area')}
-            Predicted Temperature: {prediction:.1f}°C
+            prompt = f"""
+            Generate clear, actionable urban heat mitigation strategies considering the following urban heat parameters:
 
-            Key Parameters:
-            - Green Cover: {inputs['Green Cover Percentage']}% (Threshold: {HEAT_THRESHOLDS['green_cover_min']}%)
-            - Albedo: {inputs['Albedo']} (Threshold: {HEAT_THRESHOLDS['albedo_min']})
-            - Building Height: {inputs['Building Height']}m (Threshold: {HEAT_THRESHOLDS['building_height_max']}m)
-            - Heat Stress Index: {inputs['Heat Stress Index']} (Threshold: {HEAT_THRESHOLDS['heat_stress_max']})
-            - Population Density: {inputs['Population Density']} (Threshold: {HEAT_THRESHOLDS['population_density_max']})
+            **City**: {inputs.get('City', 'Urban Area')}
+            **Predicted Temperature**: {prediction:.1f}°C
+
+            **Key Parameters**:
+            Green Cover: {inputs['Green Cover Percentage']}% (Threshold: {HEAT_THRESHOLDS['green_cover_min']}%)
+            Albedo: {inputs['Albedo']} (Threshold: {HEAT_THRESHOLDS['albedo_min']})
+            Building Height: {inputs['Building Height']}m (Threshold: {HEAT_THRESHOLDS['building_height_max']}m)
+            Heat Stress Index: {inputs['Heat Stress Index']} (Threshold: {HEAT_THRESHOLDS['heat_stress_max']})
+            Population Density: {inputs['Population Density']} (Threshold: {HEAT_THRESHOLDS['population_density_max']})
 
             Additional Context:
-            - Surface Material: {inputs['Surface Material']}
-            - Cooling Measures: {inputs['Cooling Measures Present']}
-            - Land Cover Type: {inputs['Land Cover Type']}
-            - Humidity: {inputs['Relative Humidity']}%
-            - Wind Speed: {inputs['Wind Speed']} m/s
+            Surface Material: {inputs['Surface Material']}
+            Cooling Measures Present: {inputs['Cooling Measures Present']}
+            Land Cover Type: {inputs['Land Cover Type']}
+            Relative Humidity: {inputs['Relative Humidity']}%
+            Wind Speed: {inputs['Wind Speed']} m/s
 
-            Focus on actionable steps to reduce heat stress, with specific recommendations in the following categories:
-            🏗️ **Urban Design**: Propose building designs, albedo adjustments, and road design improvements.
-            🌳 **Nature-based Solutions**: Suggest tree planting, green cover improvements, and ecosystem-based measures.
-            🔬 **Technological Interventions**: Recommend reflective paints, water bodies, or cooling technologies.
-            📜 **Policy Recommendations**: Suggest zoning changes, building codes, and cooling incentives.
+            **Instructions**:
+            Provide specific, actionable recommendations in the following categories:
+            🏗️ **Urban Design**: Propose building designs, surface treatments, road adjustments, and urban layout optimizations to enhance heat mitigation.
+            🌳 **Nature-based Solutions**: Recommend ways to improve green cover, increase tree planting, and use natural cooling techniques like parks and water features.
+            🔬 **Technological Interventions**: Suggest reflective paints, green roofs, cool pavements, water bodies, or other cooling technologies that can directly impact temperature.
+            📜 **Policy Recommendations**: Provide insights on zoning changes, building codes, energy-saving initiatives, or government incentives for heat mitigation.
 
             For each recommendation:
-            - Specify the **current value** (e.g., "Current Albedo: 0.3")
-            - Propose a **target value** (e.g., "Increase albedo to 0.4")
-            - **Quantify** the change (e.g., "Increase green cover by 10%")
-            - Provide **concrete actions** (e.g., "Implement green roofs in new buildings")
-            - Suggest **priority actions** (e.g., "Focus on reducing population density in high-traffic areas")
+            - **Current Value**: Include the current state of the parameter (e.g., "Current Albedo: 0.3")
+            - **Target Value**: Propose a practical target (e.g., "Increase albedo to 0.4")
+            - **Quantified Change**: Specify how much the value needs to change (e.g., "Increase green cover by 10%")
+            - **Specific Actions**: Provide concrete steps for implementation (e.g., "Install reflective materials on 20% of urban surfaces")
+            - **Priority Focus**: Recommend actions based on urgency (e.g., "Focus on improving green cover in densely populated areas")
+    
+            **Format** the recommendations to include:
+            - Actionable steps like "Increase green cover by 10%" or "Plant trees within 500m of high-density areas"
+            - Design or policy interventions like "Implement cool roofs" or "Establish shaded zones in commercial districts"
+            - Quantify the changes (e.g., "Reduce population density by 5,000 people/km² in the most affected zones")
+            - Contextual recommendations related to specific environmental conditions such as humidity and wind speed.
 
-            Keep the recommendations **action-oriented** and tailored to reducing urban heat while considering the city's specific needs and challenges.
-            """
-            
-            suggestions = generate_suggestions(prompt)
-            st.markdown(suggestions, unsafe_allow_html=True)
+            **Note**: Tailor the recommendations to the unique challenges and conditions of the city. Ensure the strategies are **actionable**, **quantifiable**, and **measurable**.
 
-    except Exception as e:
-        st.error("🚨 Analysis failed - Please check input parameters and try again")
-        st.error(f"Error details: {str(e)}")
-        st.code(traceback.format_exc())
+        **Output Format Example**:
+    - 🌞 Increase albedo by 0.10 (Current: 0.3)
+    - 💧 Plant water features within 500m (Current: 1000m)
+    - 👥 Reduce population density by 5,000 people/km²
+    - 🌿 Enhance vegetation density (Current index: 0.50)
+    - 🌊 Develop mangrove cooling corridors
+    - 🌉 Improve ventilation in high-rise buildings
+    - 🏙️ Add green roofs to 20% of commercial buildings
+    """
+
+    suggestions = generate_suggestions(prompt)
+    st.markdown(suggestions, unsafe_allow_html=True)
+
