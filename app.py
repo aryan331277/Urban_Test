@@ -221,16 +221,16 @@ if st.sidebar.button("🚀 Analyze Urban Heat", use_container_width=True):
 
             **Note**: Tailor the recommendations to the unique challenges and conditions of the city. Ensure the strategies are **actionable**, **quantifiable**, and **measurable**.
 
-        **Output Format Example**:
-    - 🌞 Increase albedo by 0.10 (Current: 0.3)
-    - 💧 Plant water features within 500m (Current: 1000m)
-    - 👥 Reduce population density by 5,000 people/km²
-    - 🌿 Enhance vegetation density (Current index: 0.50)
-    - 🌊 Develop mangrove cooling corridors
-    - 🌉 Improve ventilation in high-rise buildings
-    - 🏙️ Add green roofs to 20% of commercial buildings
-    """
+            **Output Format Example**:
+            - 🌞 Increase albedo by 0.10 (Current: 0.3)
+            - 💧 Plant water features within 500m (Current: 1000m)
+            - 👥 Reduce population density by 5,000 people/km²
+            - 🌿 Enhance vegetation density (Current index: 0.50)
+            - 🌊 Develop mangrove cooling corridors
+            - 🌉 Improve ventilation in high-rise buildings
+            - 🏙️ Add green roofs to 20% of commercial buildings
+            """
 
-    suggestions = generate_suggestions(prompt)
-    st.markdown(suggestions, unsafe_allow_html=True)
+        suggestions = generate_suggestions(prompt)
+        st.markdown(suggestions, unsafe_allow_html=True)
 
