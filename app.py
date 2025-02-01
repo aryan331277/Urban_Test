@@ -32,7 +32,7 @@ def load_model():
 API_KEY = os.getenv("HUGGINGFACE_API_KEY", st.secrets["HUGGINGFACE_API_KEY"])
 
 def generate_suggestions(prompt: str) -> str:
-    """Generate mitigation strategies using facebook/bart-large-cnn"""
+    """Generate actionable mitigation strategies based on input parameters."""
     headers = {
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json"
@@ -63,6 +63,7 @@ def generate_suggestions(prompt: str) -> str:
         return "⚠️ API request timed out. Please try again."
     except requests.exceptions.RequestException as e:
         return f"⚠️ API error: {str(e)}"
+
         
 def format_suggestions(text: str) -> str:
     """Format the generated suggestions with proper markdown"""
@@ -178,32 +179,39 @@ if st.sidebar.button("🚀 Analyze Urban Heat", use_container_width=True):
         # Generate suggestions
         st.subheader("💡 Mitigation Strategies")
         with st.spinner("🔍 Analyzing urban parameters and generating recommendations..."):
-            prompt = f"""
-            Generate urban heat mitigation strategies considering these parameters:
+            prompt =f"""
+            Generate actionable urban heat mitigation strategies considering these parameters:
             City: {inputs.get('City', 'Urban Area')}
-            Predicted Temperature: {prediction:.1f}°C ({threshold_status} threshold)
-            
+            Predicted Temperature: {prediction:.1f}°C
+
             Key Parameters:
             - Green Cover: {inputs['Green Cover Percentage']}% (Threshold: {HEAT_THRESHOLDS['green_cover_min']}%)
             - Albedo: {inputs['Albedo']} (Threshold: {HEAT_THRESHOLDS['albedo_min']})
             - Building Height: {inputs['Building Height']}m (Threshold: {HEAT_THRESHOLDS['building_height_max']}m)
             - Heat Stress Index: {inputs['Heat Stress Index']} (Threshold: {HEAT_THRESHOLDS['heat_stress_max']})
             - Population Density: {inputs['Population Density']} (Threshold: {HEAT_THRESHOLDS['population_density_max']})
-            
+
             Additional Context:
             - Surface Material: {inputs['Surface Material']}
             - Cooling Measures: {inputs['Cooling Measures Present']}
             - Land Cover Type: {inputs['Land Cover Type']}
             - Humidity: {inputs['Relative Humidity']}%
             - Wind Speed: {inputs['Wind Speed']} m/s
-            
-            Provide specific recommendations in these categories:
-            🏗️ Urban design improvements
-            🌳 Nature-based solutions
-            🔬 Technological interventions
-            📜 Policy recommendations
-            
-            Focus on parameters exceeding thresholds and leverage the additional context.
+
+            Focus on actionable steps to reduce heat stress, with specific recommendations in the following categories:
+            🏗️ **Urban Design**: Propose building designs, albedo adjustments, and road design improvements.
+            🌳 **Nature-based Solutions**: Suggest tree planting, green cover improvements, and ecosystem-based measures.
+            🔬 **Technological Interventions**: Recommend reflective paints, water bodies, or cooling technologies.
+            📜 **Policy Recommendations**: Suggest zoning changes, building codes, and cooling incentives.
+
+            For each recommendation:
+            - Specify the **current value** (e.g., "Current Albedo: 0.3")
+            - Propose a **target value** (e.g., "Increase albedo to 0.4")
+            - **Quantify** the change (e.g., "Increase green cover by 10%")
+            - Provide **concrete actions** (e.g., "Implement green roofs in new buildings")
+            - Suggest **priority actions** (e.g., "Focus on reducing population density in high-traffic areas")
+
+            Keep the recommendations **action-oriented** and tailored to reducing urban heat while considering the city's specific needs and challenges.
             """
             
             suggestions = generate_suggestions(prompt)
