@@ -6,7 +6,7 @@ import traceback
 import requests
 from typing import Dict, Any
 
-API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+API_URL = "https://api-inference.huggingface.co/models/deepseek-ai/DeepSeek-R1"
 MODEL_PATH = "trainedmodelfinal.pkl"
 XAI_IMAGE_PATH = "feature importance.png"
 HEAT_THRESHOLDS = {
