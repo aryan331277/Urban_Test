@@ -26,33 +26,40 @@ def load_model():
 API_KEY = os.getenv("HUGGINGFACE_API_KEY", st.secrets["HUGGINGFACE_API_KEY"])
 
 def generate_suggestions(prompt: str) -> str:
-    """Generate mitigation strategies using Hugging Face API"""
-    headers = {"Authorization": f"Bearer {st.secrets['API_KEY']}"}
+    """Generate mitigation strategies using DeepSeek-R1"""
+    
+    API_KEY = st.secrets["HUGGINGFACE_API_KEY"]  # Get API key from Streamlit Secrets
+
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+    
     payload = {
         "inputs": prompt,
         "parameters": {
-            "max_length": 400,
-            "min_length": 150,
+            "max_new_tokens": 500,
             "temperature": 0.7,
+            "top_p": 0.9,
             "do_sample": True
         }
     }
     
     try:
-        response = requests.post(API_URL, headers=headers, json=payload, timeout=30)
-        if response.status_code != 200:
-            return f"⚠️ API Error (Code {response.status_code}): {response.text[:200]}"
-
+        response = requests.post("https://api-inference.huggingface.co/models/deepseek-ai/DeepSeek-R1", 
+                                 headers=headers, json=payload, timeout=30)
+        response.raise_for_status()
         result = response.json()
-        if isinstance(result, list) and 'summary_text' in result[0]:
-            return format_suggestions(result[0]['summary_text'])
+        
+        if isinstance(result, dict) and "generated_text" in result:
+            return result["generated_text"]
         return "⚠️ Could not generate suggestions. Please try again."
     
     except requests.exceptions.Timeout:
         return "⚠️ API request timed out. Please try again."
-    except Exception as e:
-        return f"⚠️ Error: {str(e)}"
-
+    except requests.exceptions.RequestException as e:
+        return f"⚠️ API error: {str(e)}"
+        
 def format_suggestions(text: str) -> str:
     """Format the generated suggestions with proper markdown"""
     sections = {
